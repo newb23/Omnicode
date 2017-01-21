@@ -1,10 +1,4 @@
-﻿using ff14bot;
-using ff14bot.AClasses;
-using ff14bot.Enums;
-using ff14bot.Helpers;
-using ICSharpCode.SharpZipLib.Zip;
-using ProtoBuf;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -12,6 +6,12 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using ff14bot;
+using ff14bot.AClasses;
+using ff14bot.Enums;
+using ff14bot.Helpers;
+using ICSharpCode.SharpZipLib.Zip;
+using ProtoBuf;
 using TreeSharp;
 using Action = TreeSharp.Action;
 

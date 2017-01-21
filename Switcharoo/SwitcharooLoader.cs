@@ -23,7 +23,7 @@ namespace Switcharoo
         private const string ProjectAssemblyName = "Switcharoo.dll";
         private static readonly Color logColor = Color.FromRgb(109, 139, 225);
         public override string Description => "Routine Switcher.";
-        public override string Author => "NeWb23";
+        public override string Author => "Omninewb";
         public override string ButtonText => "Settings";
         public override Version Version => new Version(1, 0, 0, 0);
         public override bool WantButton => true;
