@@ -1,0 +1,146 @@
+[
+  {
+    "SpellName": "Ten",
+    "SpellId": 2259,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Chi",
+    "SpellId": 2261,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Jin",
+    "SpellId": 2263,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Ninjutsu",
+    "SpellId": 2260,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Spinning Edge",
+    "SpellId": 2240,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Kassatsu",
+    "SpellId": 2264,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Internal Release",
+    "SpellId": 59,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Gust Slash",
+    "SpellId": 2242,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Blood for Blood",
+    "SpellId": 85,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Dancing Edge",
+    "SpellId": 2251,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Jugulate",
+    "SpellId": 2256,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Spinning Edge",
+    "SpellId": 2240,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Trick Attack",
+    "SpellId": 2258,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Shadow Fang",
+    "SpellId": 2257,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Ten",
+    "SpellId": 2259,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Chi",
+    "SpellId": 2261,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Ninjutsu",
+    "SpellId": 2260,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Mutilate",
+    "SpellId": 2244,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Dream Within a Dream",
+    "SpellId": 3566,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Spinning Edge",
+    "SpellId": 2240,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Mug",
+    "SpellId": 2248,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Gust Slash",
+    "SpellId": 2242,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Duality",
+    "SpellId": 3567,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Aeolian Edge",
+    "SpellId": 2255,
+    "IsPet": false,
+    "IsItem": false
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "SpellName": "Heavy Swing",
+    "SpellId": 31,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Maim",
+    "SpellId": 37,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Brutal Swing",
+    "SpellId": 39,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Storm's Eye",
+    "SpellId": 45,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Heavy Swing",
+    "SpellId": 31,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Internal Release",
+    "SpellId": 59,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Berserk",
+    "SpellId": 38,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Skull Sunder",
+    "SpellId": 35,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Butcher's Block",
+    "SpellId": 47,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Fell Cleave",
+    "SpellId": 3549,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Infuriate",
+    "SpellId": 52,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Fell Cleave",
+    "SpellId": 3549,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Heavy Swing",
+    "SpellId": 31,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Maim",
+    "SpellId": 37,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Storm's Eye",
+    "SpellId": 45,
+    "IsPet": false,
+    "IsItem": false
+  },
+  {
+    "SpellName": "Fracture",
+    "SpellId": 33,
+    "IsPet": false,
+    "IsItem": false
+  }
+]
