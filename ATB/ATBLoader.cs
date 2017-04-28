@@ -57,6 +57,7 @@ namespace ATB
         private static MethodInfo ButtonFunc { get; set; }
 
         private static MethodInfo RootFunc { get; set; }
+        private static MethodInfo InitFunc { get; set; }
 
         public override string Name => ProjectName;
 
@@ -160,6 +161,20 @@ namespace ATB
                 StopFunc = Product.GetType().GetMethod("Stop");
                 ButtonFunc = Product.GetType().GetMethod("OnButtonPress");
                 RootFunc = Product.GetType().GetMethod("GetRoot");
+                InitFunc = Product.GetType().GetMethod("OnInitialize", new[] { typeof(int) });
+                if (InitFunc != null)
+                {
+#if RB_CN
+                Log($"{ProjectName}CN loaded.");
+                InitFunc.Invoke(Product, new[] {(object)3});
+#elif RB_64
+                Log($"{ProjectName}64 loaded.");
+                InitFunc.Invoke(Product, new[] {(object)2});
+#else
+                    Log($"{ProjectName}32 loaded.");
+                    InitFunc.Invoke(Product, new[] { (object)1 });
+#endif
+                }
             }
         }
 

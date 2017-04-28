@@ -147,12 +147,6 @@ namespace CombatRoutineLoader
 
         public override string Name => ProjectName;
 
-        public override void Initialize()
-        {
-            if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
-            if (Product != null) { InitFunc.Invoke(Product, null); }
-        }
-
         public override void OnButtonPress()
         {
             if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
@@ -305,10 +299,16 @@ namespace CombatRoutineLoader
         {
             lock (locker)
             {
-                if (Product != null) { return; }
+                if (Product != null)
+                {
+                    return;
+                }
                 Product = Load();
                 loaded = true;
-                if (Product == null) { return; }
+                if (Product == null)
+                {
+                    return;
+                }
 
                 CombatProp = Product.GetType().GetProperty("CombatBehavior");
                 HealProp = Product.GetType().GetProperty("HealBehavior");
@@ -318,9 +318,22 @@ namespace CombatRoutineLoader
                 CombatBuffProp = Product.GetType().GetProperty("CombatBuffBehavior");
                 RestProp = Product.GetType().GetProperty("RestBehavior");
                 PulseFunc = Product.GetType().GetMethod("Pulse");
-                InitFunc = Product.GetType().GetMethod("Initialize");
                 ShutDownFunc = Product.GetType().GetMethod("ShutDown");
                 ButtonFunc = Product.GetType().GetMethod("OnButtonPress");
+                InitFunc = Product.GetType().GetMethod("OnInitialize", new[] { typeof(int) });
+                if (InitFunc != null)
+                {
+#if RB_CN
+                Log($"{ProjectName}: CN loaded.");
+                InitFunc.Invoke(Product, new[] {(object)3});
+#elif RB_64
+                Log($"{ProjectName}: 64 loaded.");
+                InitFunc.Invoke(Product, new[] {(object)2});
+#else
+                    Log($"{ProjectName}: 32 loaded.");
+                    InitFunc.Invoke(Product, new[] { (object)1 });
+#endif
+                }
             }
         }
 
