@@ -87,6 +87,18 @@ namespace CombatRoutineLoader
                     case ClassJobType.DarkKnight:
                         return new[] { ClassJobType.DarkKnight };
 
+                    case ClassJobType.Conjurer:
+                        return new[] { ClassJobType.Conjurer };
+
+                    case ClassJobType.WhiteMage:
+                        return new[] { ClassJobType.WhiteMage };
+
+                    case ClassJobType.Astrologian:
+                        return new[] { ClassJobType.Astrologian };
+
+                    case ClassJobType.Scholar:
+                        return new[] { ClassJobType.Scholar };
+
                     default:
                         return new[]
                         {
@@ -99,7 +111,9 @@ namespace CombatRoutineLoader
                             ClassJobType.Arcanist, ClassJobType.Summoner,
                             ClassJobType.Rogue, ClassJobType.Ninja,
                             ClassJobType.Machinist,
-                            ClassJobType.DarkKnight
+                            ClassJobType.DarkKnight, ClassJobType.Conjurer,
+                            ClassJobType.WhiteMage, ClassJobType.Astrologian,
+                            ClassJobType.Scholar
                         };
                 }
             }
