@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using ff14bot;
@@ -370,6 +371,24 @@ namespace CombatRoutineLoader
 
         private static void AutoUpdate()
         {
+            if (Directory.Exists(baseDir + @"\.svn"))
+            {
+                Log("Found SVN folder, updating...");
+                var update = Process.Start(
+                    @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe",
+                    $@"/command:update /path:""{baseDir}"""
+                );
+
+                while (!update.HasExited)
+                {
+                    Thread.Sleep(250);
+                }
+
+                updaterFinished = true;
+                LoadProduct();
+                return;
+            }
+
             var stopwatch = Stopwatch.StartNew();
             string local = GetLocalVersion();
 
