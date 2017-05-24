@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using ff14bot;
@@ -111,10 +111,9 @@ namespace CombatRoutineLoader
                             ClassJobType.Thaumaturge, ClassJobType.BlackMage,
                             ClassJobType.Arcanist, ClassJobType.Summoner,
                             ClassJobType.Rogue, ClassJobType.Ninja,
-                            ClassJobType.Machinist,
-                            ClassJobType.DarkKnight, ClassJobType.Conjurer,
-                            ClassJobType.WhiteMage, ClassJobType.Astrologian,
-                            ClassJobType.Scholar
+                            ClassJobType.Machinist, ClassJobType.DarkKnight,
+                            ClassJobType.Conjurer, ClassJobType.WhiteMage,
+                            ClassJobType.Astrologian, ClassJobType.Scholar
                         };
                 }
             }
@@ -123,6 +122,8 @@ namespace CombatRoutineLoader
         private static readonly object locker = new object();
         private static readonly string projectAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\{ProjectAssemblyName}");
         private static readonly string greyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
+        private static readonly string KefkaUIAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\KefkaUI.Metro.dll");
+        private static readonly string mahAppsIconsAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\MahApps.Metro.IconPacks.dll");
         private static readonly string versionPath = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\version.txt");
         private static readonly string baseDir = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}");
         private static readonly string projectTypeFolder = Path.Combine(Environment.CurrentDirectory, @"Routines");
@@ -268,6 +269,22 @@ namespace CombatRoutineLoader
             };
 
             AppDomain.CurrentDomain.AssemblyResolve += greyMagicHandler;
+
+            ResolveEventHandler kefkaUIHandler = (sender, args) =>
+            {
+                var requestedAssembly = new AssemblyName(args.Name);
+                return requestedAssembly.Name != "KefkaUI.Metro" ? null : Assembly.LoadFrom(KefkaUIAssembly);
+            };
+
+            AppDomain.CurrentDomain.AssemblyResolve += kefkaUIHandler;
+
+            ResolveEventHandler mahAppsIconsHandler = (sender, args) =>
+            {
+                var requestedAssembly = new AssemblyName(args.Name);
+                return requestedAssembly.Name != "MahApps.Metro.IconPacks" ? null : Assembly.LoadFrom(mahAppsIconsAssembly);
+            };
+
+            AppDomain.CurrentDomain.AssemblyResolve += mahAppsIconsHandler;
         }
 
         private static Assembly LoadAssembly(string path)
@@ -371,25 +388,30 @@ namespace CombatRoutineLoader
 
         private static void AutoUpdate()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             if (Directory.Exists(baseDir + @"\.svn"))
             {
-                Log("Found SVN folder, updating...");
-                var update = Process.Start(
-                    @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe",
-                    $@"/command:update /path:""{baseDir}"""
-                );
-
-                while (!update.HasExited)
+                Log("Found SVN folder. Updating...");
+                using (var webClient = new WebClient())
                 {
-                    Thread.Sleep(250);
-                }
+                    var downloadeddGithubArchive = webClient.DownloadData("https://github.com/newb23/Omnicode/blob/master/Kefka.zip?raw=true");
 
-                updaterFinished = true;
-                LoadProduct();
-                return;
+                    Log("Extracting new files.");
+                    if (!Extract(downloadeddGithubArchive, projectTypeFolder))
+                    {
+                        Log("Could not extract new files.");
+                        updaterFinished = true;
+                        return;
+                    }
+
+                    stopwatch.Stop();
+                    Log($"Update complete in {stopwatch.ElapsedMilliseconds} ms.");
+                    updaterFinished = true;
+                    LoadProduct();
+                }
             }
 
-            var stopwatch = Stopwatch.StartNew();
             string local = GetLocalVersion();
 
             var message = new VersionMessage { LocalVersion = local, ProductId = ProjectId };
