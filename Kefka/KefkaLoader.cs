@@ -123,7 +123,7 @@ namespace CombatRoutineLoader
         private static readonly string projectAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\{ProjectAssemblyName}");
         private static readonly string greyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
         private static readonly string KefkaUIAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\KefkaUI.Metro.dll");
-        private static readonly string mahAppsIconsAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\MahApps.Metro.IconPacks.dll");
+        private static readonly string kefkaUIIconsAssembly = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\KefkaUI.Metro.IconPacks.dll");
         private static readonly string versionPath = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}\version.txt");
         private static readonly string baseDir = Path.Combine(Environment.CurrentDirectory, $@"Routines\{ProjectName}");
         private static readonly string projectTypeFolder = Path.Combine(Environment.CurrentDirectory, @"Routines");
@@ -278,13 +278,13 @@ namespace CombatRoutineLoader
 
             AppDomain.CurrentDomain.AssemblyResolve += kefkaUIHandler;
 
-            ResolveEventHandler mahAppsIconsHandler = (sender, args) =>
+            ResolveEventHandler kefkaUIIconsHandler = (sender, args) =>
             {
                 var requestedAssembly = new AssemblyName(args.Name);
-                return requestedAssembly.Name != "MahApps.Metro.IconPacks" ? null : Assembly.LoadFrom(mahAppsIconsAssembly);
+                return requestedAssembly.Name != "KefkaUI.Metro.IconPacks" ? null : Assembly.LoadFrom(kefkaUIIconsAssembly);
             };
 
-            AppDomain.CurrentDomain.AssemblyResolve += mahAppsIconsHandler;
+            AppDomain.CurrentDomain.AssemblyResolve += kefkaUIIconsHandler;
         }
 
         private static Assembly LoadAssembly(string path)
