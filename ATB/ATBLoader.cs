@@ -31,20 +31,20 @@ namespace ATB
         public override bool RequiresProfile => false;
 
         // Don't touch anything else below from here!
-        private static readonly object locker = new object();
+        private static readonly object Locker = new object();
 
-        private static readonly string projectAssembly = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}\{ProjectAssemblyName}");
-        private static readonly string greyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
-        private static readonly string versionPath = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}\version.txt");
-        private static readonly string baseDir = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}");
-        private static readonly string projectTypeFolder = Path.Combine(Environment.CurrentDirectory, @"BotBases");
-        private static volatile bool updaterStarted, updaterFinished, loaded;
+        private static readonly string ProjectAssembly = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}\{ProjectAssemblyName}");
+        private static readonly string GreyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
+        private static readonly string VersionPath = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}\version.txt");
+        private static readonly string BaseDir = Path.Combine(Environment.CurrentDirectory, $@"BotBases\{ProjectName}");
+        private static readonly string ProjectTypeFolder = Path.Combine(Environment.CurrentDirectory, @"BotBases");
+        private static volatile bool _updaterStarted, _updaterFinished, _loaded;
 
         public BotBaseLoader()
         {
-            if (updaterStarted) { return; }
+            if (_updaterStarted) { return; }
 
-            updaterStarted = true;
+            _updaterStarted = true;
             Task.Factory.StartNew(AutoUpdate);
         }
 
@@ -65,26 +65,26 @@ namespace ATB
         {
             get
             {
-                if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
+                if (!_loaded && Product == null && _updaterFinished) { LoadProduct(); }
                 return Product != null ? (Composite)RootFunc.Invoke(Product, null) : new Action();
             }
         }
 
         public override void OnButtonPress()
         {
-            if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
+            if (!_loaded && Product == null && _updaterFinished) { LoadProduct(); }
             if (Product != null) { ButtonFunc.Invoke(Product, null); }
         }
 
         public override void Start()
         {
-            if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
+            if (!_loaded && Product == null && _updaterFinished) { LoadProduct(); }
             if (Product != null) { StartFunc.Invoke(Product, null); }
         }
 
         public override void Stop()
         {
-            if (!loaded && Product == null && updaterFinished) { LoadProduct(); }
+            if (!_loaded && Product == null && _updaterFinished) { LoadProduct(); }
             if (Product != null) { StopFunc.Invoke(Product, null); }
         }
 
@@ -102,7 +102,7 @@ namespace ATB
             ResolveEventHandler greyMagicHandler = (sender, args) =>
             {
                 var requestedAssembly = new AssemblyName(args.Name);
-                return requestedAssembly.Name != "GreyMagic" ? null : Assembly.LoadFrom(greyMagicAssembly);
+                return requestedAssembly.Name != "GreyMagic" ? null : Assembly.LoadFrom(GreyMagicAssembly);
             };
 
             AppDomain.CurrentDomain.AssemblyResolve += greyMagicHandler;
@@ -123,7 +123,7 @@ namespace ATB
         {
             RedirectAssembly();
 
-            var assembly = LoadAssembly(projectAssembly);
+            var assembly = LoadAssembly(ProjectAssembly);
             if (assembly == null) { return null; }
 
             Type baseType;
@@ -150,11 +150,11 @@ namespace ATB
 
         private static void LoadProduct()
         {
-            lock (locker)
+            lock (Locker)
             {
                 if (Product != null) { return; }
                 Product = Load();
-                loaded = true;
+                _loaded = true;
                 if (Product == null) { return; }
 
                 StartFunc = Product.GetType().GetMethod("Start");
@@ -186,10 +186,10 @@ namespace ATB
 
         private static string GetLocalVersion()
         {
-            if (!File.Exists(versionPath)) { return null; }
+            if (!File.Exists(VersionPath)) { return null; }
             try
             {
-                string version = File.ReadAllText(versionPath);
+                string version = File.ReadAllText(VersionPath);
                 return version;
             }
             catch { return null; }
@@ -206,7 +206,7 @@ namespace ATB
 
             if (local == latest || latest == null)
             {
-                updaterFinished = true;
+                _updaterFinished = true;
                 LoadProduct();
                 return;
             }
@@ -215,28 +215,28 @@ namespace ATB
             var bytes = responseMessage.Data;
             if (bytes == null || bytes.Length == 0) { return; }
 
-            if (!Clean(baseDir))
+            if (!Clean(BaseDir))
             {
                 Log("Could not clean directory for update.");
-                updaterFinished = true;
+                _updaterFinished = true;
                 return;
             }
 
             Log("Extracting new files.");
-            if (!Extract(bytes, projectTypeFolder))
+            if (!Extract(bytes, ProjectTypeFolder))
             {
                 Log("Could not extract new files.");
-                updaterFinished = true;
+                _updaterFinished = true;
                 return;
             }
 
-            if (File.Exists(versionPath)) { File.Delete(versionPath); }
-            try { File.WriteAllText(versionPath, latest); }
+            if (File.Exists(VersionPath)) { File.Delete(VersionPath); }
+            try { File.WriteAllText(VersionPath, latest); }
             catch (Exception e) { Log(e.ToString()); }
 
             stopwatch.Stop();
             Log($"Update complete in {stopwatch.ElapsedMilliseconds} ms.");
-            updaterFinished = true;
+            _updaterFinished = true;
             LoadProduct();
         }
 
