@@ -15,6 +15,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ProtoBuf;
 using TreeSharp;
 using Action = TreeSharp.Action;
+using System.Runtime.InteropServices;
 
 namespace CombatRoutineLoader
 {
@@ -251,6 +252,15 @@ namespace CombatRoutineLoader
             }
         }
 
+        [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteFile(string name);
+
+        public static bool Unblock(string fileName)
+        {
+            return DeleteFile(fileName + ":Zone.Identifier");
+        }
+
         public static void RedirectAssembly()
         {
             ResolveEventHandler handler = (sender, args) =>
@@ -292,6 +302,7 @@ namespace CombatRoutineLoader
             if (!File.Exists(path)) { return null; }
 
             Assembly assembly = null;
+            Unblock(path);
             try { assembly = Assembly.LoadFrom(path); }
             catch (Exception e) { Logging.WriteException(e); }
 
