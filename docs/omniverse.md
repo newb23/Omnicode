@@ -9,7 +9,7 @@ Omniverse is a collection of addons for Rebornbuddy in the form of BotBases, Plu
 
 (Click a link below to be taken to a page with more information about that tab)
 
-- [ATB](/atb.html) : Full featured Combat Assist.
-- [Boko](/boko.html) : Chocobo Combat Manager.
-- [Switcharoo](/switcharoo.html) : Combat Routine Manager.
-- [Kefka](/kefka.html) : Combat Routine Suite.
+- [ATB](/Omnicode/atb.html) : Full featured Combat Assist.
+- [Boko](/Omnicode/boko.html) : Chocobo Combat Manager.
+- [Switcharoo](/Omnicode/switcharoo.html) : Combat Routine Manager.
+- [Kefka](/Omnicode/kefka.html) : Combat Routine Suite.
