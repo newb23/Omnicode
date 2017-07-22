@@ -1,8 +1,3 @@
----
-title: Omniverse
-permalink: omniverse.html
----
-
 # Omniverse
 
 Omniverse is a collection of addons for Rebornbuddy in the form of BotBases, Plugins, and Combat Routines. 
