@@ -1,6 +1,6 @@
 ---
 title: Kefka
-permalink: Omnicode/kefka.html
+permalink: /omniverse/kefka.html
 ---
 
 # Kefka

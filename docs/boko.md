@@ -1,6 +1,6 @@
 ---
 title: Boko - Chocobo Combat Manager
-permalink: /Omnicode/omniverse/boko.html
+permalink: /omniverse/boko.html
 ---
 
 # Main Settings
